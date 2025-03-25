@@ -26,4 +26,5 @@ Make sure to push the code to the remote repository and at least one commit is a
 ```ps
 git add README.md
 git commit -m "Initial commit"
+git push -u origin main""
 ```
