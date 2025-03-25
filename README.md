@@ -28,3 +28,9 @@ git add README.md
 git commit -m "Initial commit"
 git push -u origin main""
 ```
+
+## Adding .gitignore file
+
+```ps
+dotnet new gitignore
+```
