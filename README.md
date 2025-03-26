@@ -34,3 +34,8 @@ git push -u origin main""
 ```ps
 dotnet new gitignore
 ```
+
+## Build a todo list Blazor app
+```ps	
+dotnet new razorcomponent -n Todo -o Components/Pages
+```
