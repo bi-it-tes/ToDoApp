@@ -9,27 +9,30 @@
 <h1>My ToDo's</h1>
 <h3>left over Tasks: (@toDos.Count(toDo => !toDo.IsDone))</h3>
 
-<div class="App-Container">
 
-<form>
-        <input type="text" id="task-input" placeholder="Whats your task..." @bind="newToDo" />
-        <button type="button" id="submit-btn" @onclick="AddToDo">Add Task</button>
-</form>
+<div class="todo-form">
+        <input type="text" placeholder="Whats your task..." @bind="newToDo" />
+        <button type="button" @onclick="AddToDo">Add Task</button>
+</div>
 
-<div class="todos-containers">
-    <ul id="task-list">
-
+@if (toDos.Any()) //überprüfung, ob überhaupt Aufagebn vorhanden sind. 
+{
+    <ul>
         @foreach (var toDo in toDos)
         {
             <li>
-                    <input type="checkbox" @bind="toDo.IsDone" />
-                    <input type="text" @bind="toDo.Title">
-                    <button type="button" id="delete-btn" @onclick="() => toDos.Remove(toDo)">Delete</button>
+                <input type="checkbox" @bind="toDo.IsDone" />
+                <input type="text" @bind="toDo.Title" />
+                <button type="button" @onclick=@(() => DeleteToDo(toDo))>Delete</button>
             </li>
         }
     </ul>
-</div>
-</div>
+}
+else
+{
+    <p>No ToDo's available</p>
+}
+
 
 @code {
     private IList<ToDoItem> toDos = new List<ToDoItem>();
@@ -45,11 +48,8 @@
             newToDo = string.Empty;
         }
     }
-    private void DeleteToDo()
+    private void DeleteToDo(ToDoItem item)
     {
-        if (toDos.Count > 0)
-        {
-            toDos.RemoveAt(toDos.Count - 1);
-        }
+        toDos.Remove(item);
     }
 }
