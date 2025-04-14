@@ -2,16 +2,19 @@
 @rendermode InteractiveServer
 @using ToDoApp.Model
 
-@*TodoListe Tutorial: https://www.youtube.com/watch?v=nJzgPOQF3tU&t=106s*@
+<head>
+    <PageTitle>ToDo-App</PageTitle>
+    <link href="css/Todo.css" rel="stylesheet" />
+</head>
 
-<PageTitle>ToDo-App</PageTitle>
 
+    
 <h1>My ToDo's</h1>
 <h3>left over Tasks: (@toDos.Count(toDo => !toDo.IsDone))</h3>
 
-@*ToDo Form*@
+@*ToDo EingabeFormular*@
 <div class="todo-form">
-        <input type="text" placeholder="Whats your task..." @bind="newToDo" />
+        <input type="text" placeholder="Whats your ToDo..." @bind="newToDo" />
         <button type="button" @onclick="AddToDo">Add Task</button>
 
 </div>
@@ -22,24 +25,21 @@
 }
 
 @* To do List*@
-@if (toDos.Any()) //überprüfung, ob überhaupt Aufagebn vorhanden sind. 
+@if (toDos.Any()) //Überprüfung, ob überhaupt Aufgaben vorhanden sind.
 {
     <ul>
         @foreach (var toDo in toDos)
         {
-            <li>
+            <li class="task-item">
                 <input type="checkbox" @bind="toDo.IsDone" />
                 <input type="text" @bind="toDo.Title" />
                 <button type="button" @onclick=@(() => DeleteToDo(toDo))>Delete</button>
             </li>
         }
     </ul>
-}
-else
-{
+} else {
     <p>No ToDo's available</p>
 }
-
 
 @code {
     // Create
@@ -49,7 +49,7 @@ else
     
     private void AddToDo()
     {
-        if (string.IsNullOrEmpty(newToDo)) // Wenn -task leer erstellt wird
+        if (string.IsNullOrEmpty(newToDo)) // Wenn task leer erstellt wird => dann error message
         {
             errorMessage = "Please enter a task.";
             return;
