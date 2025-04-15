@@ -1,8 +1,9 @@
 ﻿* {
     margin: 0;
     padding: 0;
-    font-family: 'poppins', serif;
+    font-family: 'Arial', serif;
     box-sizing: border-box;
+    /*background-color: red;*/
 }
 
 .wrapper {
@@ -11,7 +12,7 @@
     border-radius: 5px;
     background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
+   
 
 h1 {
     text-align: center;
@@ -19,10 +20,13 @@ h1 {
 
 h3 {
     text-align: left;
+    margin: 10px;
+    padding: 5px;
+    
 }
 
 .wrapper p {
-    color: red;
+    color: blue;
 }
 /* Layout für das Eingabeformular*/
 .todo-form {

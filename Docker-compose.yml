@@ -1,0 +1,29 @@
+services:
+    mariadb: 
+        image: mariadb:latest
+        container_name: mariadb_Container
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: todoDB
+            MYSQL_USER: DBUser 
+            MYSQL_PASSWORD: Espas8049
+        ports:
+            - "3307:3306"
+        volumes:
+            - mariadb_data:/var/lib/mysql
+
+    phpmyadmin:
+        image: phpmyadmin:latest
+        container_name: phpmyadmin_Container
+        environment:
+            PMA_HOST: mariadb_Container
+            PMA_USER: root
+            PMA_PASSWORD: root
+        ports: 
+            - "8083:80"
+        depends_on:
+            - mariadb
+
+volumes: 
+    mariadb_data:
+        
