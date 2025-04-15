@@ -7,39 +7,39 @@
     <link href="css/Todo.css" rel="stylesheet" />
 </head>
 
-
-    
-<h1>My ToDo's</h1>
-<h3>left over Tasks: (@toDos.Count(toDo => !toDo.IsDone))</h3>
+<div class="wrapper">
+    <h1>My ToDo's</h1>
+    <h3>left over Tasks: (@toDos.Count(toDo => !toDo.IsDone))</h3>
 
 @*ToDo EingabeFormular*@
-<div class="todo-form">
+    <div class="todo-form">
         <input type="text" placeholder="Whats your ToDo..." @bind="newToDo" />
         <button type="button" @onclick="AddToDo">Add Task</button>
 
-</div>
+    </div>
 
-@if (!string.IsNullOrEmpty(errorMessage))
-{
-    <div class="error-message">@errorMessage</div>
-}
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="error-message">@errorMessage</div>
+    }
 
 @* To do List*@
-@if (toDos.Any()) //Überprüfung, ob überhaupt Aufgaben vorhanden sind.
-{
-    <ul>
-        @foreach (var toDo in toDos)
-        {
-            <li class="task-item">
-                <input type="checkbox" @bind="toDo.IsDone" />
-                <input type="text" @bind="toDo.Title" />
-                <button type="button" @onclick=@(() => DeleteToDo(toDo))>Delete</button>
-            </li>
-        }
-    </ul>
-} else {
-    <p>No ToDo's available</p>
-}
+    @if (toDos.Any()) //Überprüfung, ob überhaupt Aufgaben vorhanden sind.
+    {
+        <ul>
+            @foreach (var toDo in toDos)
+            {
+                <li class="task-item">
+                    <input type="checkbox" @bind="toDo.IsDone" />
+                    <input type="text" @bind="toDo.Title" />
+                    <button type="button" @onclick=@(() => DeleteToDo(toDo))>Delete</button>
+                </li>
+            }
+        </ul>
+    } else {
+        <p>No ToDo's available</p>
+    }
+    </div>
 
 @code {
     // Create
