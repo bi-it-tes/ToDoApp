@@ -11,6 +11,8 @@ services:
             - "3307:3306"
         volumes:
             - mariadb_data:/var/lib/mysql
+        networks:  # vorallem bei insolierte Container anwenden 
+            - todo_network
 
     phpmyadmin:
         image: phpmyadmin:latest
@@ -18,12 +20,16 @@ services:
         environment:
             PMA_HOST: mariadb_Container
             PMA_USER: root
-            PMA_PASSWORD: root
+            PMA_PASSWORD: root # Gleich heissen wie im DB Root_password
         ports: 
             - "8083:80"
         depends_on:
             - mariadb
-
+        networks: 
+            - todo_network 
 volumes: 
     mariadb_data:
+networks:
+    todo_network:
+       
         
