@@ -3,13 +3,14 @@
 @using ToDoApp.Model
 
 <head>
-    <PageTitle>ToDo-App</PageTitle>
-    <link href="css/Todo.css" rel="stylesheet" />
+    <title>ToDo-App</title>
+    <link href="~/Pages/Todo.razor/Todo.razor.css" rel="stylesheet" />
 </head>
 
 <div class="wrapper">
     <h1>My ToDo's</h1>
     <h3>left over Tasks: (@toDos.Count(toDo => !toDo.IsDone))</h3>
+
 
 @*ToDo EingabeFormular*@
     <div class="todo-form">
@@ -30,13 +31,15 @@
             @foreach (var toDo in toDos)
             {
                 <li class="task-item">
+                    <!--Debugging-->
+                    <p>IsEditable: @toDo.IsEditable</p>
                     <!--Bind IsDone CheckBox-->
                     <input type="checkbox" @bind="toDo.IsDone" /> 
                     
                     <!--Bind the Title and set it readonly based on IsEditable -->
                     <input type="text" @bind="toDo.Title" readonly="@(!toDo.IsEditable)" />
 
-                    
+                    <!--Update Button - default is Readonly when adding Task -->
                     <button type="button" @onclick="@(() => ToggleEdit(toDo))">
                         @if (toDo.IsEditable)
                         {
@@ -87,6 +90,7 @@
     private void ToggleEdit(ToDoItem toDo)
     {
         toDo.IsEditable = !toDo.IsEditable;
+
     }
 
     // Delete
