@@ -30,8 +30,25 @@
             @foreach (var toDo in toDos)
             {
                 <li class="task-item">
-                    <input type="checkbox" @bind="toDo.IsDone" />
-                    <input type="text" @bind="toDo.Title" />
+                    <!--Bind IsDone CheckBox-->
+                    <input type="checkbox" @bind="toDo.IsDone" /> 
+                    
+                    <!--Bind the Title and set it readonly based on IsEditable -->
+                    <input type="text" @bind="toDo.Title" readonly="@(!toDo.IsEditable)" />
+
+                    
+                    <button type="button" @onclick="@(() => ToggleEdit(toDo))">
+                        @if (toDo.IsEditable)
+                        {
+                            @:Save 
+                        }
+                        else
+                        {
+                            @:Update
+                        }
+                    </button>
+
+                    <!--Delete button-->
                     <button type="button" @onclick=@(() => DeleteToDo(toDo))>Delete</button>
                 </li>
             }
@@ -46,7 +63,7 @@
     private IList<ToDoItem> toDos = new List<ToDoItem>();
     private string newToDo;
     private string errorMessage = string.Empty;
-    
+
     private void AddToDo()
     {
         if (string.IsNullOrEmpty(newToDo)) // Wenn task leer erstellt wird => dann error message
@@ -56,17 +73,23 @@
         } 
 
         // Wenn Task gültig, hinzufügen 
-            toDos.Add(new ToDoItem()
+        toDos.Add(new ToDoItem()
             {
                Title=newToDo 
             });
 
         newToDo = string.Empty;
         errorMessage = string.Empty; // Fehlernachricht zurücksetzen
-            
-        }
-    
 
+    }
+
+    //Update
+    private void ToggleEdit(ToDoItem toDo)
+    {
+        toDo.IsEditable = !toDo.IsEditable;
+    }
+
+    // Delete
     private void DeleteToDo(ToDoItem toDo)
     {
         toDos.Remove(toDo);
