@@ -11,7 +11,6 @@
     <h1>My ToDo's</h1>
     <h3>left over Tasks: (@toDos.Count(toDo => !toDo.IsDone))</h3>
 
-
 @*ToDo EingabeFormular*@
     <div class="todo-form">
         <input type="text" placeholder="Whats your ToDo..." @bind="newToDo" />
@@ -90,7 +89,6 @@
     private void ToggleEdit(ToDoItem toDo)
     {
         toDo.IsEditable = !toDo.IsEditable;
-
     }
 
     // Delete
