@@ -14,7 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Components\Pages\Todo.razor.css" />
+    <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="MySqlConnector" Version="2.4.0" />
   </ItemGroup>
 
 </Project>

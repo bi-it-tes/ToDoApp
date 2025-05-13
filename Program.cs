@@ -2,6 +2,10 @@ using ToDoApp.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
+string connString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+Console.WriteLine($"Connection STring: {connString}");
+
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();

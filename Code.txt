@@ -1,0 +1,191 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', serif;
+    box-sizing: border-box;
+    /*background-color: red;*/
+}
+
+.wrapper {
+    border: 2px solid black;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+h3 {
+    text-align: left;
+    margin: 10px;
+    padding: 5px;
+    
+}
+
+.wrapper p {
+    color: blue;
+}
+/* Layout für das Eingabeformular*/
+.todo-form {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Texteingabe vom ToDo*/
+.todo-form input[type="text"] {
+    width: 86%;
+    padding: 7px 7px;
+    margin: 8px 0px;
+    border: #c1c1c1 solid 1px;
+    height: 40px;
+    }
+
+
+/* Add Task Button*/
+.todo-form button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    }
+
+/* Fehlermeldung */
+.error-message {
+    color:red;
+    margin-bottom: 1rem;
+}
+
+/* Aufgabenliste*/
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Task Item*/
+.task-item[type="checkbox"] {
+
+    
+}
+/* Ein einzelner Task*/
+li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Create
+    private IList<ToDoItem> toDos = new List<ToDoItem>();
+    private string newToDo;
+    private string errorMessage = string.Empty;
+
+    private void AddToDo()
+    {
+        if (string.IsNullOrEmpty(newToDo)) // Wenn task leer erstellt wird => dann error message
+        {
+            errorMessage = "Please enter a task.";
+            return;
+        } 
+
+        // Wenn Task gültig, hinzufügen 
+        toDos.Add(new ToDoItem()
+            {
+               Title=newToDo 
+            });
+
+        newToDo = string.Empty;
+        errorMessage = string.Empty; // Fehlernachricht zurücksetzen
+
+    }
+
+    //Update
+    private void ToggleEdit(ToDoItem toDo)
+    {
+        toDo.IsEditable = !toDo.IsEditable;
+    }
+
+    // Delete
+    private void DeleteToDo(ToDoItem toDo)
+    {
+        toDos.Remove(toDo);
+    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="wrapper">
+    <p>sdfsdffsdfsdf</p>
+    <h1>My ToDo's</h1>
+    <h3>left over Tasks: (@toDos.Count(toDo => !toDo.IsDone))</h3>
+
+@*ToDo EingabeFormular*@
+    <div class="todo-form">
+        <input type="text" placeholder="Whats your ToDo..." @bind="newToDo" />
+        <button type="button" @onclick="AddToDo">Add Task</button>
+
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="error-message">@errorMessage</div>
+    }
+
+@* To do List*@
+    @if (toDos.Any()) //Überprüfung, ob überhaupt Aufgaben vorhanden sind.
+    {
+        <ul>
+            @foreach (var toDo in toDos)
+            {
+                <li class="task-item">
+                    <!--Debugging-->
+                    <p>IsEditable: @toDo.IsEditable</p>
+                    <!--Bind IsDone CheckBox-->
+                    <input type="checkbox" @bind="toDo.IsDone" /> 
+                    
+                    <!--Bind the Title and set it readonly based on IsEditable -->
+                    <input type="text" @bind="toDo.Title" readonly="@(!toDo.IsEditable)" />
+
+                    <!--Update Button - default is Readonly when adding Task -->
+                    <button type="button" @onclick="@(() => ToggleEdit(toDo))">
+                        @if (toDo.IsEditable)
+                        {
+                            @:Save 
+                        }
+                        else
+                        {
+                            @:Update
+                        }
+                    </button>
+
+                    <!--Delete button-->
+                    <button type="button" @onclick=@(() => DeleteToDo(toDo))>Delete</button>
+                </li>
+            }
+        </ul>
+    } else {
+        <p>No ToDo's available</p>
+    }
+    </div>

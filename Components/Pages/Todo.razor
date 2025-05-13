@@ -2,99 +2,21 @@
 @rendermode InteractiveServer
 @using ToDoApp.Model
 
-<head>
-    <title>ToDo-App</title>
-    <link href="~/Pages/Todo.razor/Todo.razor.css" rel="stylesheet" />
-</head>
+<PageTitle>ToDoApp</PageTitle>
 
 <div class="wrapper">
     <h1>My ToDo's</h1>
-    <h3>left over Tasks: (@toDos.Count(toDo => !toDo.IsDone))</h3>
+    <h3>left over Tasks: </h3>
 
-@*ToDo EingabeFormular*@
+    @*ToDo EingabeFormular*@
     <div class="todo-form">
-        <input type="text" placeholder="Whats your ToDo..." @bind="newToDo" />
-        <button type="button" @onclick="AddToDo">Add Task</button>
+        <input type="text" placeholder="Whats your ToDo..." />
+        <button type="button">Add Task</button>
 
     </div>
-
-    @if (!string.IsNullOrEmpty(errorMessage))
-    {
-        <div class="error-message">@errorMessage</div>
-    }
-
-@* To do List*@
-    @if (toDos.Any()) //Überprüfung, ob überhaupt Aufgaben vorhanden sind.
-    {
-        <ul>
-            @foreach (var toDo in toDos)
-            {
-                <li class="task-item">
-                    <!--Debugging-->
-                    <p>IsEditable: @toDo.IsEditable</p>
-                    <!--Bind IsDone CheckBox-->
-                    <input type="checkbox" @bind="toDo.IsDone" /> 
-                    
-                    <!--Bind the Title and set it readonly based on IsEditable -->
-                    <input type="text" @bind="toDo.Title" readonly="@(!toDo.IsEditable)" />
-
-                    <!--Update Button - default is Readonly when adding Task -->
-                    <button type="button" @onclick="@(() => ToggleEdit(toDo))">
-                        @if (toDo.IsEditable)
-                        {
-                            @:Save 
-                        }
-                        else
-                        {
-                            @:Update
-                        }
-                    </button>
-
-                    <!--Delete button-->
-                    <button type="button" @onclick=@(() => DeleteToDo(toDo))>Delete</button>
-                </li>
-            }
-        </ul>
-    } else {
-        <p>No ToDo's available</p>
-    }
-    </div>
+</div>
 
 @code {
-    // Create
-    private IList<ToDoItem> toDos = new List<ToDoItem>();
-    private string newToDo;
-    private string errorMessage = string.Empty;
 
-    private void AddToDo()
-    {
-        if (string.IsNullOrEmpty(newToDo)) // Wenn task leer erstellt wird => dann error message
-        {
-            errorMessage = "Please enter a task.";
-            return;
-        } 
-
-        // Wenn Task gültig, hinzufügen 
-        toDos.Add(new ToDoItem()
-            {
-               Title=newToDo 
-            });
-
-        newToDo = string.Empty;
-        errorMessage = string.Empty; // Fehlernachricht zurücksetzen
-
-    }
-
-    //Update
-    private void ToggleEdit(ToDoItem toDo)
-    {
-        toDo.IsEditable = !toDo.IsEditable;
-    }
-
-    // Delete
-    private void DeleteToDo(ToDoItem toDo)
-    {
-        toDos.Remove(toDo);
-    }
 
 }
