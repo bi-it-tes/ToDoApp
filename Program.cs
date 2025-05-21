@@ -1,14 +1,15 @@
 using ToDoApp.Components;
+using ToDoApp.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
-
-string connString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-Console.WriteLine($"Connection STring: {connString}");
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddScoped<ToDoItemRepository>(serviceProvider =>
+    new ToDoItemRepository(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
 
 var app = builder.Build();
 

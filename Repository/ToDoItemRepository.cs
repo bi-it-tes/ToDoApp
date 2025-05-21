@@ -1,6 +1,8 @@
-﻿using MySqlConnector;
+﻿using Dapper;
+using MySqlConnector;
 using System.Data;
 using System.Reflection.Metadata.Ecma335;
+using ToDoApp.Model;
 using ToDoApp.Repository;
 
 namespace ToDoApp.Repository
@@ -10,18 +12,27 @@ namespace ToDoApp.Repository
     {
         // Properties = 1.Schritt connection zur DB (dies ist der Speicher)
         private IDbConnection dbConnection => new MySqlConnection(ConnString);
-        private String ConnString; 
+        private String ConnString;
         // 
-        public ToDoItemRepository(string ConnectionString) {
+        public ToDoItemRepository(string ConnectionString)
+        {
             ConnString = ConnectionString;
-        } 
+        }
         public void Create() { }
         public void Update() { }
         public void Delete() { }
         public void Read() { }
-        public void ReadAll() { }
+        public IEnumerable<ToDoItem> GetAll()
+        {
+            using (var conn = dbConnection)
+            {
+                dbConnection.Open();
+                var result = dbConnection.Query<ToDoItem>("SELECT * FROM ToDoItem");
+                return result;
+            }
+        }
 
-        
+
 
     }
 }

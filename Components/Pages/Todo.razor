@@ -1,6 +1,8 @@
 ﻿@page "/todo"
 @rendermode InteractiveServer
 @using ToDoApp.Model
+@using ToDoApp.Repository
+@inject ToDoItemRepository ToDoRepo
 
 <PageTitle>ToDoApp</PageTitle>
 
@@ -17,6 +19,15 @@
 </div>
 
 @code {
+   
+    protected override void OnInitialized()
+    {
+        var ToDOItems = ToDoRepo.GetAll();
 
-
+        foreach (ToDoItem item in ToDOItems)
+        {
+            Console.WriteLine(item.Title);
+        }
+    }
+    
 }
