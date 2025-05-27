@@ -2,7 +2,7 @@
 @rendermode InteractiveServer
 @using ToDoApp.Model
 @using ToDoApp.Repository
-@inject ToDoItemRepository ToDoRepo
+@inject ToDoItemRepository ToDoRepo //Db verbindung.
 
 <PageTitle>ToDoApp</PageTitle>
 
@@ -10,24 +10,42 @@
     <h1>My ToDo's</h1>
     <h3>left over Tasks: </h3>
 
-    @*ToDo EingabeFormular*@
+    @*ToDo EingabeFormular + Liste*@
     <div class="todo-form">
-        <input type="text" placeholder="Whats your ToDo..." />
-        <button type="button">Add Task</button>
+        @*Create Methode*@
+        <input type="text" @bind="newTask" placeholder="Whats your ToDo..." />
+        <button @onclick="CreateTask">Add Task</button>
+
+        @*GetAll Methode*@
+        <ul> 
+            @foreach (var item in items)
+            {
+                <li>@item.Title</li>
+            }
+        </ul>
 
     </div>
 </div>
 
 @code {
-   
-    protected override void OnInitialized()
+    // GetAll
+    private List<ToDoItem> items = new();
+    protected override void OnInitialized()  // Start der app Automatisch überschreiben 
     {
-        var ToDOItems = ToDoRepo.GetAll();
+        items = ToDoRepo.GetAll().ToList();
 
-        foreach (ToDoItem item in ToDOItems)
-        {
-            Console.WriteLine(item.Title);
-        }
     }
-    
+
+    //Create 
+    string newTask;
+    protected void CreateTask()
+    {
+        ToDoItem newItem = new ToDoItem();
+        newItem.Title = newTask;
+        ToDoRepo.Create(newItem);  
+        items = ToDoRepo.GetAll().ToList();
+        newTask = "";
+
+
+    }
 }

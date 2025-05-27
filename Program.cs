@@ -1,19 +1,20 @@
 using ToDoApp.Components;
 using ToDoApp.Repository;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);  // = static void Main(String[] args) 
 
-// Add services to the container.
+// Add services to the container. 
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+    .AddInteractiveServerComponents(); 
 
+//Dependecy Injection // Scope = Neue Instanz pro Anfrage. 
 builder.Services.AddScoped<ToDoItemRepository>(serviceProvider =>
-    new ToDoItemRepository(builder.Configuration.GetConnectionString("DefaultConnection"))
+    new ToDoItemRepository(builder.Configuration.GetConnectionString("DefaultConnection")) // ConnectionString aus appsettings.json
 );
 
-var app = builder.Build();
+var app = builder.Build();  // Baut die App zusammen 
 
-// Configure the HTTP request pipeline.
+// Middleware HTTP Request implementieren...
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
@@ -21,13 +22,14 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+app.UseHttpsRedirection(); // sorgt für eine sichere Verbindung 
 
 
 app.UseAntiforgery();
 
-app.MapStaticAssets();
+app.MapStaticAssets();  // Stellt statische Dateien (Css,Js) bererit
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
-app.Run();
+// Startet AppServer, wartet auf Anfrage
+app.Run(); 

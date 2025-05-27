@@ -18,7 +18,14 @@ namespace ToDoApp.Repository
         {
             ConnString = ConnectionString;
         }
-        public void Create() { }
+        public void Create(ToDoItem item) 
+        {
+            using (var conn = dbConnection)
+            {
+                conn.Open();
+                conn.Execute("INSERT INTO ToDoItem (Title) Values (@Title)", item);
+            }
+        }
         public void Update() { }
         public void Delete() { }
         public void Read() { }
@@ -26,8 +33,8 @@ namespace ToDoApp.Repository
         {
             using (var conn = dbConnection)
             {
-                dbConnection.Open();
-                var result = dbConnection.Query<ToDoItem>("SELECT * FROM ToDoItem");
+                conn.Open(); // Kaufmann fragen: Wenn dbConnection steht wird eine neue Instanz erstellt? conn ist die Variable für die geöffnete Instaz? 
+                var result = conn.Query<ToDoItem>("SELECT * FROM ToDoItem");
                 return result;
             }
         }
