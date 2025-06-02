@@ -13,11 +13,12 @@ namespace ToDoApp.Repository
         // Properties = 1.Schritt connection zur DB (dies ist der Speicher)
         private IDbConnection dbConnection => new MySqlConnection(ConnString);
         private String ConnString;
-        // 
+        
         public ToDoItemRepository(string ConnectionString)
         {
             ConnString = ConnectionString;
         }
+        // Create-----------------------------------------------------------------------------
         public void Create(ToDoItem item) 
         {
             using (var conn = dbConnection)
@@ -26,9 +27,22 @@ namespace ToDoApp.Repository
                 conn.Execute("INSERT INTO ToDoItem (Title) Values (@Title)", item);
             }
         }
+
+        //Update-------------------------------------------------------------------------------
         public void Update() { }
-        public void Delete() { }
+
+        // Delete------------------------------------------------------------------------------
+        public void Delete(int id) 
+        {
+            using (var conn = dbConnection)
+            {
+                conn.Open();
+                conn.Execute("DELETE FROM ToDoItem WHERE Id = @id", new { id }); 
+            }
+        }
+        
         public void Read() { }
+        // GetAll methode (Item List)-----------------------------------------------------------
         public IEnumerable<ToDoItem> GetAll()
         {
             using (var conn = dbConnection)

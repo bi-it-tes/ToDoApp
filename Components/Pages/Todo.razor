@@ -20,7 +20,9 @@
         <ul> 
             @foreach (var item in items)
             {
-                <li>@item.Title</li>
+                <li>@item.Title</li> 
+                @*Delete Methode*@
+                <button @onclick="() => DeleteTask(item.Id)"></button>
             }
         </ul>
 
@@ -28,7 +30,7 @@
 </div>
 
 @code {
-    // GetAll
+    // GetAll -----------------------------------------------------------------------------
     private List<ToDoItem> items = new();
     protected override void OnInitialized()  // Start der app Automatisch überschreiben 
     {
@@ -36,7 +38,7 @@
 
     }
 
-    //Create 
+    //Create ------------------------------------------------------------------------------
     string newTask;
     protected void CreateTask()
     {
@@ -45,7 +47,12 @@
         ToDoRepo.Create(newItem);  
         items = ToDoRepo.GetAll().ToList();
         newTask = "";
-
-
     }
-}
+
+    //Delete -------------------------------------------------------------------------------
+    protected void DeleteTask(int id)
+    {
+        ToDoRepo.Delete(id);
+        items = ToDoRepo.GetAll().ToList();  // Liste neu Laden
+    }
+}   
