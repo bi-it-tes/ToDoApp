@@ -33,8 +33,8 @@ namespace ToDoApp.Repository
         {
             using (var conn = dbConnection)
             {
-                conn.Open(); // Kaufmann fragen: Wenn dbConnection steht wird eine neue Instanz erstellt? conn ist die Variable für die geöffnete Instaz? 
-                var result = conn.Query<ToDoItem>("SELECT * FROM ToDoItem");
+                dbConnection.Open(); // Kaufmann fragen: Wenn dbConnection steht wird eine neue Instanz erstellt? conn ist die Variable für die geöffnete Instaz? 
+                var result = dbConnection.Query<ToDoItem>("SELECT * FROM ToDoItem");
                 return result;
             }
         }
