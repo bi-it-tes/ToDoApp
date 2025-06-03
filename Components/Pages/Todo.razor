@@ -12,28 +12,30 @@
 
     @*ToDo EingabeFormular + Liste*@
     <div class="todo-form">
-        @*Create Methode*@
+        @*Create Methode------------------------------------------------------------------*@
         <input type="text" @bind="newTask" placeholder="Whats your ToDo..." />
         <button @onclick="CreateTask">Add Task</button>
 
-        @*GetAll Function*@
+        @*GetAll Function-----------------------------------------------------------------*@
         <ul> 
             @foreach (var item in items)
             {
-                <li>@item.Title</li> 
-                @*Delete Function*@
-                <button @onclick="() => DeleteTask(item.Id)">Delete</button>
-
-                @*Update Function*@
-                @if (editingId == item.Id)
+                <li>
+                @*Update Function---------------------------------------------------------*@
+                @if (item.Id == editingId)   
                 {
-                    <input @bind="item.Title" />
-                    <button @onclick="@(() => SaveTask(item.Id, item.Title))">Save</button>
-                } else
+                    <input @bind="editedTitle" />
+                    <button @onclick="@(() => SaveTask(item.Id, editedTitle))">Save</button>
+                } 
+                else
                 {
                     <span>@item.Title</span>
                     <button @onclick="@(() => UpdateTask(item.Id))">Update</button>
-                } 
+                }
+
+                @*Delete Function---------------------------------------------------------*@
+                    <button @onclick="() => DeleteTask(item.Id)">Delete</button>
+                </li>
             }
         </ul>
 
@@ -68,18 +70,20 @@
     }
 
     //Update -------------------------------------------------------------------------------
+    int? editingId = null;
+    private String editedTitle;
+
     protected void SaveTask(int id, string title)
     {
         ToDoRepo.Update(id, title);
         items = ToDoRepo.GetAll().ToList();
         editingId = null;
+        editedTitle = "";
     }
 
-    int? editingId = null;
     protected void UpdateTask(int id)
     {
         editingId = id;
+        editedTitle = items.FirstOrDefault(i => i.Id == id)?.Title ?? "";
     }
-
-
 }   
