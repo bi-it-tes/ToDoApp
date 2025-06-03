@@ -29,7 +29,14 @@ namespace ToDoApp.Repository
         }
 
         //Update-------------------------------------------------------------------------------
-        public void Update() { }
+        public void Update(int id, string title) 
+        {
+            using (var conn = dbConnection)
+            {
+                conn.Open();
+                conn.Execute("UPDATE ToDoItem SET Title = @Title WHERE Id = @Id", new { Id = id, Title = title });
+            }
+        }
 
         // Delete------------------------------------------------------------------------------
         public void Delete(int id) 
@@ -37,12 +44,12 @@ namespace ToDoApp.Repository
             using (var conn = dbConnection)
             {
                 conn.Open();
-                conn.Execute("DELETE FROM ToDoItem WHERE Id = @id", new { id }); 
+                conn.Execute("DELETE FROM ToDoItem WHERE Id = @id", new { id });  //<-- Anonymes Object
             }
         }
-        
-        public void Read() { }
+
         // GetAll methode (Item List)-----------------------------------------------------------
+        public void Read() { }
         public IEnumerable<ToDoItem> GetAll()
         {
             using (var conn = dbConnection)

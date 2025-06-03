@@ -16,13 +16,24 @@
         <input type="text" @bind="newTask" placeholder="Whats your ToDo..." />
         <button @onclick="CreateTask">Add Task</button>
 
-        @*GetAll Methode*@
+        @*GetAll Function*@
         <ul> 
             @foreach (var item in items)
             {
                 <li>@item.Title</li> 
-                @*Delete Methode*@
-                <button @onclick="() => DeleteTask(item.Id)"></button>
+                @*Delete Function*@
+                <button @onclick="() => DeleteTask(item.Id)">Delete</button>
+
+                @*Update Function*@
+                @if (editingId == item.Id)
+                {
+                    <input @bind="item.Title" />
+                    <button @onclick="@(() => SaveTask(item.Id, item.Title))">Save</button>
+                } else
+                {
+                    <span>@item.Title</span>
+                    <button @onclick="@(() => UpdateTask(item.Id))">Update</button>
+                } 
             }
         </ul>
 
@@ -55,4 +66,20 @@
         ToDoRepo.Delete(id);
         items = ToDoRepo.GetAll().ToList();  // Liste neu Laden
     }
+
+    //Update -------------------------------------------------------------------------------
+    protected void SaveTask(int id, string title)
+    {
+        ToDoRepo.Update(id, title);
+        items = ToDoRepo.GetAll().ToList();
+        editingId = null;
+    }
+
+    int? editingId = null;
+    protected void UpdateTask(int id)
+    {
+        editingId = id;
+    }
+
+
 }   
