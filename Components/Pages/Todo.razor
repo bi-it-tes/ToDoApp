@@ -17,20 +17,20 @@
         <button @onclick="CreateTask">Add Task</button>
 
         @*GetAll Function-----------------------------------------------------------------*@
-        <ul> 
+        <ul class="todo-list"> 
             @foreach (var item in items)
             {
-                <li>
+                <li class="todo-item">
                 @*Update Function---------------------------------------------------------*@
                 @if (item.Id == editingId)   
                 {
-                    <input @bind="editedTitle" />
-                    <button @onclick="@(() => SaveTask(item.Id, editedTitle))">Save</button>
+                    <input class="edit-input" @bind="editedTitle" />
+                    <button @onclick="@(() => SaveTask(item.Id, editedTitle))">Save</button> //wegen if schleife erwartet razor C# Code. 
                 } 
                 else
                 {
                     <span>@item.Title</span>
-                    <button @onclick="@(() => UpdateTask(item.Id))">Update</button>
+                    <button @onclick="@(() => UpdateTask(item.Id))">Update</button>  
                 }
 
                 @*Delete Function---------------------------------------------------------*@
