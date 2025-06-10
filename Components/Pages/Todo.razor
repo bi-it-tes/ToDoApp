@@ -3,6 +3,7 @@
 @using ToDoApp.Model
 @using ToDoApp.Repository
 @inject ToDoItemRepository ToDoRepo //Db verbindung(Variable)
+@inject IJSRuntime JS 
 
 <PageTitle>ToDoApp</PageTitle>
 
@@ -12,6 +13,11 @@
 
     @*ToDo EingabeFormular + Liste*@
     <div class="todo-form">
+        @if (!string.IsNullOrWhiteSpace(errorMessage))
+        {
+            <p style="color:red">@errorMessage</p>
+        }
+
         @*Create Methode------------------------------------------------------------------*@
         <input type="text" @bind="newTask" placeholder="Whats your ToDo..." />
         <button @onclick="CreateTask">Add Task</button>
@@ -53,8 +59,14 @@
 
     //Create ------------------------------------------------------------------------------
     string newTask;
-    protected void CreateTask()
+    string errorMessage;
+    protected async Task CreateTask()
     {
+        if (string.IsNullOrWhiteSpace(newTask))
+        {
+            await JS.InvokeVoidAsync("alert", "Input missing!");
+        }
+
         ToDoItem newItem = new ToDoItem();
         newItem.Title = newTask;
         ToDoRepo.Create(newItem);  
