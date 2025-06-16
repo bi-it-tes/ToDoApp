@@ -1,6 +1,5 @@
 ﻿.wrapper {
     border: solid 1px red;
-    margin: auto
   
 }
 
@@ -18,4 +17,10 @@
 
 .edit-input {
 
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 5px;
 }

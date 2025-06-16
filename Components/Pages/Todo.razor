@@ -20,7 +20,7 @@
 
         @if (!string.IsNullOrWhiteSpace(errorMessage))
         {
-            <p style="color:red">@errorMessage</p>    
+            <p class="error-message">@errorMessage</p>    
         }
 
         @*GetAll Function-----------------------------------------------------------------*@
@@ -68,8 +68,8 @@
             errorMessage = "Task must not be empth!";
             return;
         }
-        
 
+        errorMessage = "";
         ToDoItem newItem = new ToDoItem();
         newItem.Title = newTask;
         ToDoRepo.Create(newItem);  
