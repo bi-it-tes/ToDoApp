@@ -63,7 +63,7 @@
     string errorMessage;
     protected async Task CreateTask()
     {
-        if (string.IsNullOrEmpty(newTask))
+        if (string.IsNullOrWhiteSpace(newTask))
         {
             errorMessage = "Task must not be empth!";
             return;
