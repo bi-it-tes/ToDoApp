@@ -15,7 +15,8 @@
     <div class="todo-form">
 
         @*Create Methode------------------------------------------------------------------*@
-        <input type="text" @bind="newTask" placeholder="Whats your ToDo..." />
+        @*bind:event="oninput" // Jeder Tastendruck löst direkt aus --> new Task aktualisierenen*@
+        <input type="text" @bind="newTask" @bind:event="oninput" @onkeydown="CreateEnterKey" placeholder="Whats your ToDo..." />  
         <button @onclick="CreateTask">Add Task</button>
 
         @if (!string.IsNullOrWhiteSpace(errorMessage))
@@ -75,6 +76,15 @@
         ToDoRepo.Create(newItem);  
         items = ToDoRepo.GetAll().ToList();
         newTask = "";
+    }
+
+    // Creating a Task with klicking on the Enter Key aswell
+    protected async Task CreateEnterKey(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            await CreateTask();
+        }
     }
 
     //Delete -------------------------------------------------------------------------------
