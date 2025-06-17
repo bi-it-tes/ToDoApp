@@ -13,14 +13,15 @@
 
     @*ToDo EingabeFormular + Liste*@
     <div class="todo-form">
-        @if (!string.IsNullOrWhiteSpace(errorMessage))
-        {
-            <p style="color:red">@errorMessage</p>
-        }
 
         @*Create Methode------------------------------------------------------------------*@
         <input type="text" @bind="newTask" placeholder="Whats your ToDo..." />
         <button @onclick="CreateTask">Add Task</button>
+
+        @if (!string.IsNullOrWhiteSpace(errorMessage))
+        {
+            <p class="error-message">@errorMessage</p>    
+        }
 
         @*GetAll Function-----------------------------------------------------------------*@
         <ul class="todo-list"> 
@@ -64,9 +65,11 @@
     {
         if (string.IsNullOrWhiteSpace(newTask))
         {
-            await JS.InvokeVoidAsync("alert", "Input missing!");
+            errorMessage = "Task must not be empth!";
+            return;
         }
 
+        errorMessage = "";
         ToDoItem newItem = new ToDoItem();
         newItem.Title = newTask;
         ToDoRepo.Create(newItem);  
