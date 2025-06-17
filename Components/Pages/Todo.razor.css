@@ -1,5 +1,4 @@
 ﻿.wrapper {
-    border: solid 1px red;
   
 }
 
@@ -20,7 +19,14 @@
 }
 
 .error-message {
+    background-color: #e5a3a3;
     color: red;
+    border-radius: 5px;
     font-weight: bold;
     margin-top: 5px;
+    padding: 10px;
+    max-width: 225px;
+    display: flex;
+    align-items: center;  /*Hauptachse (links-rechts)*/
+    justify-content: center; /*Querachse (Oben-unten)*/
 }
