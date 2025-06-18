@@ -32,8 +32,8 @@
                 @*Update Function---------------------------------------------------------*@
                 @if (item.Id == editingId)   
                 {
-                    <input class="edit-input" @bind="editedTitle" />
-                    <button @onclick="@(() => SaveTask(item.Id, editedTitle))">Save</button> //wegen if schleife erwartet razor C# Code. 
+                        <input class="edit-input" @bind="editedTitle" @bind:event="oninput" @onkeydown="@(e => SaveEnterKey(e, item.Id))" />
+                        <button @onclick="@(() => SaveTask(item.Id, editedTitle))">Save</button> //wegen if schleife erwartet razor C# Code.
                 } 
                 else
                 {
@@ -78,7 +78,7 @@
         newTask = "";
     }
 
-    // Creating a Task with klicking on the Enter Key aswell
+    // Function for Enter Key: Creates a task like the button
     protected async Task CreateEnterKey(KeyboardEventArgs e)
     {
         if (e.Key == "Enter")
@@ -110,5 +110,14 @@
     {
         editingId = id;
         editedTitle = items.FirstOrDefault(i => i.Id == id)?.Title ?? "";
+    }
+
+    // fuction for Enter Key: Saves the update like the Save-Button
+    protected void SaveEnterKey(KeyboardEventArgs e, int id)
+    {
+        if(e.Key == "Enter")
+        {
+            SaveTask(id, editedTitle); 
+        }    
     }
 }   
