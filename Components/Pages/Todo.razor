@@ -17,7 +17,7 @@
         @*Create Methode------------------------------------------------------------------*@
         @*bind:event="oninput" // Jeder Tastendruck löst direkt aus --> new Task aktualisierenen*@
         <input type="text" @bind="newTask" @bind:event="oninput" @onkeydown="CreateEnterKey" placeholder="Whats your ToDo..." />  
-        <button @onclick="CreateTask">Add Task</button>
+        <button class="add-btn" @onclick="CreateTask"> Add </button>
 
         @if (!string.IsNullOrWhiteSpace(errorMessage))
         {
@@ -33,16 +33,16 @@
                 @if (item.Id == editingId)   
                 {
                         <input class="edit-input" @bind="editedTitle" @bind:event="oninput" @onkeydown="@(e => SaveEnterKey(e, item.Id))" />
-                        <button @onclick="@(() => SaveTask(item.Id, editedTitle))">Save</button> //wegen if schleife erwartet razor C# Code.
+                        <button class="save-btn" @onclick="@(() => SaveTask(item.Id, editedTitle))">Save</button> //wegen if schleife erwartet razor C# Code.
                 } 
                 else
                 {
                     <span>@item.Title</span>
-                    <button @onclick="@(() => UpdateTask(item.Id))">Update</button>  
+                    <button class="update-btn" @onclick="@(() => UpdateTask(item.Id))">Update</button>  
                 }
 
                 @*Delete Function---------------------------------------------------------*@
-                    <button @onclick="() => DeleteTask(item.Id)">Delete</button>
+                    <button class="delete-btn" @onclick="() => DeleteTask(item.Id)">Delete</button>
                 </li>
             }
         </ul>

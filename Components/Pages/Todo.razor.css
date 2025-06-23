@@ -1,21 +1,73 @@
-﻿.wrapper {
-  
+﻿* {
+    margin: 0rem;       /*Removes default spacing*/
+    padding: 0rem;      /*Removes default spacing*/
+    font-family: sans-serif;
+    box-sizing: border-box;     /*Makes sizing easier to understand*/
+}
+
+.wrapper {
+  max-width: 600px;     /*Limit width*/
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  border-radius: 20px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
 }
 
 .todo-form {
+    display: ;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
 
+.todo-form input[type="text"] {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 .todo-list {
-
+    list-style: circle;      /*because here is a UO-List every smbol should look the same */
+    list-style-position:;
 }
 
 .todo-item {
-
+    align-items: center;
+    justify-content: space-between; 
+    padding: 0.4rem 0.5rem;
+    border-bottom: 1px solid #ddd;
 }
 
 .edit-input {
 
+}
+
+button {
+    margin: 0.25em; /*gap bettwen*/
+    padding: 0.2em 0.7em; /*how thick*/
+    font-size: 1rem;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    background: #dddddd;
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background: #04AA6D ;
+}
+
+.save-btn:hover {
+    background: #04AA6D;
+}
+
+.update-btn:hover {
+    background: #008CBA;
+}
+
+.delete-btn:hover {
+    background: #f44336;
 }
 
 .error-message {
