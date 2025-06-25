@@ -25,24 +25,35 @@
         }
 
         @*GetAll Function-----------------------------------------------------------------*@
-        <ul class="todo-list"> 
+        <ul class="todo-list">
             @foreach (var item in items)
             {
                 <li class="todo-item">
-                @*Update Function---------------------------------------------------------*@
-                @if (item.Id == editingId)   
-                {
-                        <input class="edit-input" @bind="editedTitle" @bind:event="oninput" @onkeydown="@(e => SaveEnterKey(e, item.Id))" />
-                        <button class="save-btn" @onclick="@(() => SaveTask(item.Id, editedTitle))">Save</button> //wegen if schleife erwartet razor C# Code.
-                } 
-                else
-                {
-                    <span>@item.Title</span>
-                    <button class="update-btn" @onclick="@(() => UpdateTask(item.Id))">Update</button>  
-                }
 
-                @*Delete Function---------------------------------------------------------*@
-                    <button class="delete-btn" @onclick="() => DeleteTask(item.Id)">Delete</button>
+                    <div class="left-edge">
+                        @*Update Function---------------------------------------------------------*@  
+                    @if (item.Id == editingId)
+                        {
+                            <input class="edit-input" @bind="editedTitle" @bind:event="oninput" @onkeydown="@(e => SaveEnterKey(e, item.Id))" />
+                            <div class="right-edge">
+                                <button class="save-btn" @onclick="@(() => SaveTask(item.Id, editedTitle))">Save</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <span>@item.Title</span>
+                        }
+                    </div>
+
+                    <div class="right-edge">
+                        @*Delete Function---------------------------------------------------------*@  
+                    @if (item.Id != editingId)
+                        {
+                            <button class="update-btn" @onclick="@(() => UpdateTask(item.Id))">Update</button>  @*wegen if schleife erwartet razor C# Code.*@
+                        }
+                        <button class="delete-btn" @onclick="() => DeleteTask(item.Id)">Delete</button>
+                    </div>
+
                 </li>
             }
         </ul>
