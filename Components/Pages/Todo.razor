@@ -50,7 +50,7 @@
                         {
                             <button class="update-btn" @onclick="@(() => UpdateTask(item.Id))">Update</button>  @*wegen if schleife erwartet razor C# Code.*@
                         }
-                        <button class="done-btn" @onclick="@(() => CloseTask(item.Id))">Done</button> 
+                        <button class="done-btn" @onclick="@(() => SetTaskStatus(item.Id, true))">Done</button>
                         <button class="delete-btn" @onclick="() => DeleteTask(item.Id)">Delete</button>
                     </div>
 
@@ -64,6 +64,7 @@
             {
                 <li class="todo-item">
                     <span>@item.Title</span>
+                    <button class="redo-btn" @onclick="@(() => SetTaskStatus(item.Id, false))">Redo</button>
                 </li>
             }
         </ul>
@@ -142,7 +143,7 @@
     }
 
     //IsDone = Close Methode
-    protected void CloseTask(int id)
+    protected void SetTaskStatus(int id, bool isDone)
     {
         var item = items.FirstOrDefault(i => i.Id == id);
         if (item != null)

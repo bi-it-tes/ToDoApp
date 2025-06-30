@@ -60,7 +60,7 @@ namespace ToDoApp.Repository
             }
         }
 
-        //ISDone methoden ()
+        //SetStatusTask methoden ()
         public void UpdateDone(int id, bool isDone)
         {
             using (var conn = dbConnection)
