@@ -41,9 +41,10 @@ h1, h3 {
 }
 
 .todo-item {
+    display: flex;
     align-items: center;
-    justify-content: space-between; 
-    padding: 0.4rem 0.5rem;
+    justify-content: space-between;  
+    padding: 0.5rem 0.25rem;
     border-bottom: 1px solid #ddd;
 }
 
@@ -52,9 +53,21 @@ h1, h3 {
     width: 25em;
 }
 
+.right-edge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.left-edge {
+    display: flex;
+    gap: 0.5rem;
+}
+
 button {
     margin: 0.25em; /*gap bettwen*/
     padding: 0.2em 0.7em; /*how thick*/
+    min-width: 80px;
     font-size: 1rem;
     border-radius: 20px;
     border: none;
@@ -70,7 +83,7 @@ button {
 }
 
 .add-btn:hover {
-    background: #04AA6D ;
+    background: #04AA6D;
 }
 
 .save-btn:hover {
