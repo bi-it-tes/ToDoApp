@@ -60,6 +60,17 @@ namespace ToDoApp.Repository
             }
         }
 
+        //SetStatusTask methoden ()
+        public void UpdateDone(int id, bool isDone)
+        {
+            using (var conn = dbConnection)
+            {
+                conn.Open();
+                conn.Execute("UPDATE ToDoItem SET IsDone = @IsDone Where Id = @id", new {Id = id, IsDone = isDone }); //isDone Variable weil um auch false setzen zu können, un dnicht nur true
+            }
+        }
+       
+
 
 
     }

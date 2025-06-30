@@ -26,13 +26,12 @@
 
         @*GetAll Function-----------------------------------------------------------------*@
         <ul class="todo-list">
-            @foreach (var item in items)
+            @foreach (var item in items.Where(i => !i.IsDone))  // Closed/Done Task are here
             {
                 <li class="todo-item">
-
                     <div class="left-edge">
                         @*Update Function---------------------------------------------------------*@  
-                    @if (item.Id == editingId)
+                        @if (item.Id == editingId)
                         {
                             <input class="edit-input" @bind="editedTitle" @bind:event="oninput" @onkeydown="@(e => SaveEnterKey(e, item.Id))" />
                             <div class="right-edge">
@@ -47,17 +46,28 @@
 
                     <div class="right-edge">
                         @*Delete Function---------------------------------------------------------*@  
-                    @if (item.Id != editingId)
+                        @if (item.Id != editingId)
                         {
                             <button class="update-btn" @onclick="@(() => UpdateTask(item.Id))">Update</button>  @*wegen if schleife erwartet razor C# Code.*@
                         }
+                        <button class="done-btn" @onclick="@(() => SetTaskStatus(item.Id, true))">Done</button>
                         <button class="delete-btn" @onclick="() => DeleteTask(item.Id)">Delete</button>
                     </div>
 
                 </li>
             }
         </ul>
-
+        @*Done Liste*@
+        <h2>Closed Task:</h2>
+        <ul class="todo-list">
+            @foreach (var item in items.Where(i => i.IsDone)) // All closed/Done Task are here
+            {
+                <li class="todo-item">
+                    <span>@item.Title</span>
+                    <button class="redo-btn" @onclick="@(() => SetTaskStatus(item.Id, false))">Redo</button>
+                </li>
+            }
+        </ul>
     </div>
 </div>
 
@@ -130,5 +140,17 @@
         {
             SaveTask(id, editedTitle); 
         }    
+    }
+
+    //IsDone = Close Methode
+    protected void SetTaskStatus(int id, bool isDone)
+    {
+        var item = items.FirstOrDefault(i => i.Id == id);
+        if (item != null)
+        {
+            item.IsDone = isDone;
+            ToDoRepo.UpdateDone(item.Id, item.IsDone);
+            items = ToDoRepo.GetAll().ToList();
+        }
     }
 }   
