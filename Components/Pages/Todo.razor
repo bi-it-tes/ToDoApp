@@ -148,7 +148,7 @@
         var item = items.FirstOrDefault(i => i.Id == id);
         if (item != null)
         {
-            item.IsDone = true;
+            item.IsDone = isDone;
             ToDoRepo.UpdateDone(item.Id, item.IsDone);
             items = ToDoRepo.GetAll().ToList();
         }
