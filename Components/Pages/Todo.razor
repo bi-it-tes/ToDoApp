@@ -33,10 +33,7 @@
                         @*Update Function---------------------------------------------------------*@  
                         @if (item.Id == editingId)
                         {
-                            <input class="edit-input" @bind="editedTitle" @bind:event="oninput" @onkeydown="@(e => SaveEnterKey(e, item.Id))" />
-                            <div class="right-edge">
-                                <button class="save-btn" @onclick="@(() => SaveTask(item.Id, editedTitle))">Save</button>
-                            </div>
+                            <input class="edit-input" @bind="editedTitle" @bind:event="oninput" @onkeydown="@(e => SaveEnterKey(e, item.Id))" /> 
                         }
                         else
                         {
@@ -49,9 +46,15 @@
                         @if (item.Id != editingId)
                         {
                             <button class="update-btn" @onclick="@(() => UpdateTask(item.Id))">Update</button>  @*wegen if schleife erwartet razor C# Code.*@
+                            <button class="done-btn" @onclick="@(() => SetTaskStatus(item.Id, true))">Done</button>
+                            <button class="delete-btn" @onclick="() => DeleteTask(item.Id)">Delete</button>
                         }
-                        <button class="done-btn" @onclick="@(() => SetTaskStatus(item.Id, true))">Done</button>
-                        <button class="delete-btn" @onclick="() => DeleteTask(item.Id)">Delete</button>
+                        else
+                        {
+                            <button class="save-btn" @onclick="@(() => SaveTask(item.Id, editedTitle))">Save</button>
+                            <button class="done-btn" @onclick="@(() => SetTaskStatus(item.Id, true))">Done</button>
+                        }
+
                     </div>
 
                 </li>
