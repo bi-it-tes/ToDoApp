@@ -33,8 +33,7 @@
                         @*Update Function---------------------------------------------------------*@  
                         @if (item.Id == editingId)
                         {
-                            <input class="edit-input" @bind="editedTitle" @bind:event="oninput" @onkeydown="@(e => SaveEnterKey(e, item.Id))" />
-                            <button class="done-btn" @onclick="@(() => SetTaskStatus(item.Id, true))">Done</button>
+                            <input class="edit-input" @bind="editedTitle" @bind:event="oninput" @onkeydown="@(e => SaveEnterKey(e, item.Id))" /> 
                         }
                         else
                         {
@@ -53,6 +52,7 @@
                         else
                         {
                             <button class="save-btn" @onclick="@(() => SaveTask(item.Id, editedTitle))">Save</button>
+                            <button class="done-btn" @onclick="@(() => SetTaskStatus(item.Id, true))">Done</button>
                         }
 
                     </div>
