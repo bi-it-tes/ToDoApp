@@ -9,7 +9,7 @@
 
 <div class="wrapper">
     <h1>My ToDo's</h1>
-    <h3>left over Tasks: @items.Count</h3>
+    <h3>left over Tasks: @items.Count(items => !items.IsDone)</h3>
 
     @*ToDo EingabeFormular + Liste*@
     <div class="todo-form">
@@ -61,7 +61,7 @@
             }
         </ul>
         @*Done Liste*@
-        <h2>Closed Task:</h2>
+        <h2>Done List:</h2>
         <ul class="todo-list">
             @foreach (var item in items.Where(i => i.IsDone)) // All closed/Done Task are here
             {
