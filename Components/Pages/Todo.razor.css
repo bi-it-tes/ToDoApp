@@ -29,21 +29,37 @@ h2 {
     margin-bottom: 1rem;
 }
 
-.todo-form input[type="text"] {
-    width: 90%;
-    padding: 0.5rem 1rem;
-    margin: 2rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
+    .todo-form input[type="text"] {
+        width: 90%;
+        padding: 0.5rem 1rem;
+        margin: 2rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+
+    .todo-form input[type="text"]:focus {   /*Beim Draufklicken fokus auf dises Style*/
+        outline:none;
+        box-shadow: 0 0 5px #008CBA;
+    }
 
 .todo-list {
-    list-style: circle;      /*because here is a UO-List = every symbol should look the same */
-    list-style-position:;
+    list-style: circle; /*because here is a UO-List = every symbol should look the same */
+    margin: 2rem;
+    padding: 0.5rem 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
-
+    .todo-list li:hover {     
+        border: solid 1px #ccc;
+        background-color: #f7f7f7;
+        transition: all 0.2 ease-in-out;
+    }
+    
 .todo-item {
     display: flex;
     align-items: center;
@@ -80,35 +96,36 @@ button {
     cursor: pointer;
 }
 
-.add-btn {
-   display: block;
-   margin: auto;
-   margin-bottom: 1.5rem;
-}
+    .add-btn {
+        display: block;
+        margin: auto;
+        margin-bottom: 1.5rem;
+    }
 
-.add-btn:hover {
-    background:#555555 ;
-}
+    .add-btn:hover {
+        background:#555555 ;
+    }
 
-.save-btn:hover {
-    background: #04AA6D;
-}
+    .save-btn:hover {
+        background: #04AA6D;
+    }
 
-.update-btn:hover {
-    background: #008CBA;
-}
+    .update-btn:hover {
+        background: #008CBA;
+    }
 
-.delete-btn:hover {
-    background: #f44336;
-}
+    .delete-btn:hover {
+        background: #f44336;
+    }
 
-.done-btn:hover {
-    background: #04AA6D;
-}
+    .done-btn:hover {
+        background: #04AA6D;
+    }
 
-.redo-btn:hover {
-    background: #f44336;
-}
+    .redo-btn:hover {
+        background: #f44336;
+    }
+
 .error-message {
     background-color: #e5a3a3;
     color: red;
